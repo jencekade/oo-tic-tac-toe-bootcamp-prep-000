@@ -1,4 +1,9 @@
 def TicTacToe
+
+  def initialize
+    @board = board || Array.new(9, " ")
+  end
+
   WIN_COMBINATIONS = [
     [0, 1, 2],
     [3, 4, 5],
@@ -10,16 +15,12 @@ def TicTacToe
     [2, 4, 6]
   ]
 
-  def initialize(board = nil)
-    @board = board || Array.new(9, " ")
-  end
-
-  def display_board(board)
-    puts " #{board[0]} | #{board[1]} | #{board[2]} "
+  def display_board
+    puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts "-----------"
-    puts " #{board[3]} | #{board[4]} | #{board[5]} "
+    puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
     puts "-----------"
-    puts " #{board[6]} | #{board[7]} | #{board[8]} "
+    puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
 
   def input_to_index(input)
@@ -30,9 +31,17 @@ def TicTacToe
     @board[index] = token
   end
 
+  def position_taken?(index)
+    if(@board[index] == " " || @board[index] == "")
+      return false
+    else
+      return true
+    end
+  end
+
   def valid_move?(position)
     index = input_to_index(position)
-    if (@board[index]==" " && index.between?(0,8))
+    if (!position_taken(position) && index.between?(0,8))
       return true
     else
       return false
@@ -40,7 +49,15 @@ def TicTacToe
   end
 
   def turn
-
+    puts "Enter 1-9:"
+    input = gets()
+    index = input_to_index(input)
+    if(valid_move?(index))
+      move(index)
+      display_board
+    else
+      turn
+    end
   end
 
   def turn_count
@@ -50,6 +67,6 @@ def TicTacToe
   end
 
   def current_player
-    turn_count % 2 = 0 ? "X": "O"
+    turn_count % 2 == 0 ? "X": "O"
   end
 end
