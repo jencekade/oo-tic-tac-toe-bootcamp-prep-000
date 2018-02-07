@@ -3,7 +3,7 @@ def TicTacToe
   def initialize
     @board = board || Array.new(9, " ")
   end
-
+=begin
   WIN_COMBINATIONS = [
     [0, 1, 2],
     [3, 4, 5],
@@ -14,7 +14,7 @@ def TicTacToe
     [0, 4, 8],
     [2, 4, 6]
   ]
-
+=end
   def display_board
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts "-----------"
